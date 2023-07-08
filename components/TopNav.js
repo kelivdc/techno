@@ -94,7 +94,7 @@ function TopNav() {
               }}
             >
               {pages.map((page) => (
-                <ListItem disableGutters>
+                <ListItem disableGutters key={page}>
                   <ListItemButton component="a">{page}</ListItemButton>
                 </ListItem>
               ))}
@@ -117,7 +117,7 @@ function TopNav() {
                   }}
                 >
                   {pages.map((page) => (
-                    <ListItem disablePadding>
+                    <ListItem disablePadding key={page}>
                       <ListItemButton>
                         <ListItemText>{page}</ListItemText>
                       </ListItemButton>
