@@ -18,13 +18,31 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
+import Link from "next/link";
+
+// async function getCategories() {
+//   const res = await fetch('http://localhost:1337/api/categories')
+//   // console.log(res)
+//   return res.json()
+// }
 
 function TopNav() {
+  const [categories, setCategories] = useState([]);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("http://localhost:1337/api/categories");
+      const jsonData = await response.json();
+      setCategories(jsonData.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    console.log("Ready");
+    fetchCategories();
   }, []);
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
@@ -47,27 +65,23 @@ function TopNav() {
         >
           Terminal Techno
         </Typography>
-        <Box>
-          <List
-            
-            disableGutters
-            sx={{
-              display: "flex",
-              padding: "0",
-            }}
-          >
-            <ListItem disableGutters>
-              <ListItemButton component="a">About</ListItemButton>
-            </ListItem>
-            <ListItem disableGutters>
-            <ListItemButton component="a">Policy</ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
+        <List
+          dense
+          sx={{
+            display: "flex",
+            padding: "0",
+          }}
+        >
+          <ListItem>
+            <ListItemButton component={Link} href="/about">About</ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton component={Link} href="/policy">Policy</ListItemButton>
+          </ListItem>
+        </List>
       </Stack>
       <Container
         disableGutters
-        disablePadding
         sx={{
           backgroundColor: "#016fbb",
           color: "#fff",
@@ -79,10 +93,8 @@ function TopNav() {
           color="primary"
           position="relative"
           elevation={0}
-          disableGutters          
-          disablePadding
         >
-          <Toolbar disableGutters variant="dense">
+          <Toolbar variant="dense">
             <List
               disablePadding
               dense
@@ -92,10 +104,15 @@ function TopNav() {
                   md: "flex",
                 },
               }}
-            >
-              {pages.map((page) => (
-                <ListItem disableGutters key={page}>
-                  <ListItemButton component="a">{page}</ListItemButton>
+            >              
+              <ListItem disableGutters>
+                <ListItemButton component={Link} href="/">Home</ListItemButton>
+              </ListItem>
+              {categories.map((cat) => (
+                <ListItem disableGutters key={cat["id"]}>
+                  <ListItemButton component={Link} href={`/cat/${cat['attributes']['slug']}`}>
+                    {cat["attributes"]["name"]}
+                  </ListItemButton>
                 </ListItem>
               ))}
             </List>
@@ -116,21 +133,19 @@ function TopNav() {
                     height: "100vh",
                   }}
                 >
-                  {pages.map((page) => (
-                    <ListItem disablePadding key={page}>
-                      <ListItemButton>
-                        <ListItemText>{page}</ListItemText>
+                  {categories.map((cat) => (
+                    <ListItem key={cat["id"]}>
+                      <ListItemButton component={Link} href={`/cat/${cat['attributes']['slug']}`}>
+                        <ListItemText>{cat["attributes"]["name"]}</ListItemText>
                       </ListItemButton>
                     </ListItem>
                   ))}
                   <Divider />
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemButton component="a">About</ListItemButton>
-                    </ListItemButton>
+                  <ListItem>
+                    <ListItemButton component={Link} href="/about">About</ListItemButton>
                   </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton component="a">Policy</ListItemButton>
+                  <ListItem>
+                    <ListItemButton component={Link} href="/policy">Policy</ListItemButton>
                   </ListItem>
                 </List>
               </Drawer>

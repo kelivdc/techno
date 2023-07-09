@@ -1,11 +1,9 @@
-// import Image from 'next/image'
-// import styles from './page.module.css'
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 
 export default function Home() {
   return (
-    <>
+    <>      
       <Typography>
         Tercatat jumlah penumpang dari Jawa ke Bali mencapai 25.163 orang dan
         7.014 unit kendaraan pada Kamis (6/7/2023). Corporate Secretary PT ASDP
