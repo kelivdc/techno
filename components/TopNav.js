@@ -72,11 +72,15 @@ function TopNav() {
             padding: "0",
           }}
         >
-          <ListItem>
-            <ListItemButton component={Link} href="/about">About</ListItemButton>
+          <ListItem disableGutters>
+            <ListItemButton component={Link} href="/about">
+              About
+            </ListItemButton>
           </ListItem>
-          <ListItem>
-            <ListItemButton component={Link} href="/policy">Policy</ListItemButton>
+          <ListItem disableGutters>
+            <ListItemButton component={Link} href="/policy">
+              Policy
+            </ListItemButton>
           </ListItem>
         </List>
       </Stack>
@@ -104,13 +108,22 @@ function TopNav() {
                   md: "flex",
                 },
               }}
-            >              
-              <ListItem disableGutters>
-                <ListItemButton component={Link} href="/">Home</ListItemButton>
+            >
+              <ListItem disableGutters className="btn-nav-top">
+                <ListItemButton component={Link} href="/">
+                  Home
+                </ListItemButton>
               </ListItem>
               {categories.map((cat) => (
-                <ListItem disableGutters key={cat["id"]}>
-                  <ListItemButton component={Link} href={`/cat/${cat['attributes']['slug']}`}>
+                <ListItem
+                  disableGutters
+                  key={cat["id"]}
+                  className="btn-nav-top"
+                >
+                  <ListItemButton
+                    component={Link}
+                    href={`/cat/${cat["attributes"]["slug"]}`}
+                  >
                     {cat["attributes"]["name"]}
                   </ListItemButton>
                 </ListItem>
@@ -135,17 +148,24 @@ function TopNav() {
                 >
                   {categories.map((cat) => (
                     <ListItem key={cat["id"]}>
-                      <ListItemButton component={Link} href={`/cat/${cat['attributes']['slug']}`}>
+                      <ListItemButton
+                        component={Link}
+                        href={`/cat/${cat["attributes"]["slug"]}`}
+                      >
                         <ListItemText>{cat["attributes"]["name"]}</ListItemText>
                       </ListItemButton>
                     </ListItem>
                   ))}
                   <Divider />
                   <ListItem>
-                    <ListItemButton component={Link} href="/about">About</ListItemButton>
+                    <ListItemButton component={Link} href="/about">
+                      About
+                    </ListItemButton>
                   </ListItem>
                   <ListItem>
-                    <ListItemButton component={Link} href="/policy">Policy</ListItemButton>
+                    <ListItemButton component={Link} href="/policy">
+                      Policy
+                    </ListItemButton>
                   </ListItem>
                 </List>
               </Drawer>

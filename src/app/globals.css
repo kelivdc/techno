@@ -2,3 +2,8 @@ body {
   margin: 0;
   background-color: #ebebeb;
 }
+
+.btn-nav-top:hover {
+  border-bottom: solid 1px #fff;
+  color: #ccc;
+}
